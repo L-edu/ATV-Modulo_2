@@ -1,0 +1,42 @@
+/* GERAL */
+body {
+  font: 400 15px/1.8 Lato, sans-serif;
+  color: #777;
+}
+
+/* MENU */
+.navbar {
+  margin-bottom: 0;
+  background-color: #4169e1;
+  border: 0;
+  font-size: 11px !important;
+  letter-spacing: 4px;
+  font-family: "Roboto Slab", serif;
+}
+
+.navbar li a,
+.navbar .navbar-brand {
+  color: #d5d5d5 !important;
+}
+
+.navbar-nav li a:hover {
+  color: #4169e1 !important;
+}
+
+.navbar-toggle .icon-bar {
+  background-color: #fff;
+}
+
+/* FOOTER */
+footer {
+  background-color: #4169e1;
+  color: #f5f5f5;
+  padding: 32px;
+}
+footer a {
+  color: #f5f5f5;
+}
+footer a:hover {
+  color: #ff7373;
+  text-decoration: none;
+}
