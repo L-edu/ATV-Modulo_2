@@ -1,7 +1,7 @@
 Algoritmo "Cadastro de viagem"
 
 Var
-cont, qtd: inteiro
+opcao, cont, qtd: inteiro
 nomes: vetor[1..10] de caractere
 destinos: vetor[1..10] de caractere
 cliente, destino: caractere
@@ -17,12 +17,12 @@ Procedimento consultar_viagem()
 var
    indice: inteiro
 Inicio
-      escreval("|Lista de cadastros|")
-      escreval()
+      Escreval("|Lista de cadastros|")
+      Escreval()
    para indice <- 1 ate cont faca
-      escreval("Passageiro: ", nomes[indice])
-      escreval("Destino: ", destinos[indice])
-      escreval("--------------------")
+      Escreval("Passageiro: ", nomes[indice])
+      Escreval("Destino: ", destinos[indice])
+      Escreval("--------------------")
    FimPara
 FimProcedimento
 
@@ -40,6 +40,18 @@ Inicio
       Leia(destino)
       cadastrar_viagem(cliente, destino)
    FimEnquanto
-   consultar_viagem()
-
+   Escreval("--------------------")
+   
+   Escreval("Digite 1 para consultar as viagens")
+   Escreval("Digite 2 para encerrar o atendimento")
+   Leia(opcao)
+   
+   Se opcao = 1 Entao
+      consultar_viagem()
+   Senao
+      Se opcao = 2 Entao
+         Escreval("Atendimento encerrado!")
+      FimSe
+   FimSe
 FimAlgoritmo
+
