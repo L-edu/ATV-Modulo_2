@@ -112,17 +112,29 @@
             <div class="modal-body">
               <form role="form">
                 <div class="form-group">
-                  <label for="psw"><span class="glyphicon glyphicon-user"></span>
-                    Preencha um email valido</label>
-                  <input type="text" class="form-control" id="email" placeholder="Informe seu email" />
+                  <label for="psw"><span class="glyphicon glyphicon-shopping-cart"></span>
+                    Selecione o destino</label>
+                  <input type="text" class="form-control" id="email" placeholder="Destino" />
                 </div>
                 <div class="form-group">
                   <label for="usrname"><span class="glyphicon glyphicon-shopping-cart"></span> Selecione a quantidade de
                     bilhetes para compra</label>
                   <input type="number" class="form-control" id="qnt" placeholder="Quantos bilhetes deseja?" />
                 </div>
+                <div class="form-group">
+                  <label>Data de ida </label>
+                  <input type="date" class="form-control" />
+                  <label>Data de volta</label>
+                  <input type="date" class="form-control" />
+                  <label>Forma de pagamento</label>
+                  <select id="escolha" name="escolha">
+                    <option value="opcao1">Cartão</option>
+                    <option value="opcao2">Dinheiro</option>
+                    <option value="opcao3">Pix</option>
+                  </select>
+                </div>
                 <button type="submit" class="btn btn-block">
-                  Ir para formas de pagamento
+                  Realizar pagamento
                 </button>
               </form>
             </div>
@@ -157,4 +169,5 @@
       </a>
   </footer>
 </body>
+
 </html>
