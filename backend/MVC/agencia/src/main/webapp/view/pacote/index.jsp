@@ -34,7 +34,7 @@ List<Pacote> lista = (List<Pacote>) request.getAttribute("Pacotes");
 				aria-current="page" href="./index.html">Home</a></li>
 			<li class="nav-item"><a class="nav-link" href="./usuario">Usuario</a>
 			</li>
-			<li class="nav-item"><a class="nav-link" href="../pacote/">Pacotes</a></li>
+			<li class="nav-item"><a class="nav-link" href="./pacote">Pacotes</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">Reservas</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">Pagamentos</a></li>
 		</ul>
@@ -71,16 +71,17 @@ List<Pacote> lista = (List<Pacote>) request.getAttribute("Pacotes");
 
 										<a href="pacote-delete?id=${pid}" class="mx-1"
 											title="Cancelar"
-											onclick="return confirm('Deseja excluir: ${p.destino}.')">
-											<i class="ri-delete-bin-2-line"></i>
+											onclick="return confirm('Deseja excluir: ${p.destino}.')"> <i
+											class="ri-delete-bin-2-line"></i>
 										</a>
 									</div>
 								</td>
 							</tr>
 
 							<!-- modal editar -->
-							<div class="modal fade" id="pacote-edit${u.id}" tabindex="-1"
-								aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal fade" id="pacote-edit${u.id}"
+								tabindex="-1" aria-labelledby="exampleModalLabel"
+								aria-hidden="true">
 								<div class="modal-dialog modal-dialog-centered">
 									<div class="modal-content">
 										<div class="modal-header">
@@ -102,8 +103,8 @@ List<Pacote> lista = (List<Pacote>) request.getAttribute("Pacotes");
 
 												<div class="form-group mb-3">
 													<label for="destino" class="form-label"> Destino </label> <input
-														type="text" id="destino" name="destino"
-														class="form-control" value="${p.destino}" />
+														type="text" id="destino" name="destino" class="form-control"
+														value="${p.destino}" />
 												</div>
 
 												<div class="form-group mb-3">
