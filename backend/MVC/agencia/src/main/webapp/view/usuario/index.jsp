@@ -32,11 +32,10 @@ List<Usuario> lista = (List<Usuario>) request.getAttribute("usuarios");
 		<ul class="nav justify-content-center">
 			<li class="nav-item"><a class="nav-link active"
 				aria-current="page" href="./index.html">Home</a></li>
-			<li class="nav-item"><a class="nav-link" href="./usuario">Usuario</a>
-			</li>
-			<li class="nav-item"><a class="nav-link" href="../pacote/">Pacotes</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">Reservas</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">Pagamentos</a></li>
+			<li class="nav-item"><a class="nav-link" href="./usuario">Usuario</a></li>
+			<li class="nav-item"><a class="nav-link" href="./pacote">Pacotes</a></li>
+			<li class="nav-item"><a class="nav-link" href="./reserva">Reservas</a></li>
+			<li class="nav-item"><a class="nav-link" href="./pagamento">Pagamentos</a></li>
 		</ul>
 
 		<section class="container">
@@ -80,9 +79,8 @@ List<Usuario> lista = (List<Usuario>) request.getAttribute("usuarios");
 							</tr>
 
 							<!-- modal editar -->
-							<div class="modal fade" id="usuario-edit${u.id}"
-								tabindex="-1" aria-labelledby="exampleModalLabel"
-								aria-hidden="true">
+							<div class="modal fade" id="usuario-edit${u.id}" tabindex="-1"
+								aria-labelledby="exampleModalLabel" aria-hidden="true">
 								<div class="modal-dialog modal-dialog-centered">
 									<div class="modal-content">
 										<div class="modal-header">
@@ -121,7 +119,7 @@ List<Usuario> lista = (List<Usuario>) request.getAttribute("usuarios");
 												<div class="form-group mb-3">
 													<label for="email" class="form-label"> Senha </label> <input
 														type="password" id="senha" name="senha"
-														class="form-control" value="${u.telefone }" />
+														class="form-control" value="${u.senha }" />
 												</div>
 
 												<button type="submit" class="btn btn-primary">

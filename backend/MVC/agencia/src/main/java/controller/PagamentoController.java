@@ -18,7 +18,7 @@ import model.Reserva;
 public class PagamentoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	Pagamento pagamento = new Pagamento();
-	PagamentoDAO pDAO = new PagamentoDAO();
+	PagamentoDAO pagDAO = new PagamentoDAO();
 	Reserva reserva = new Reserva();
 
     public PagamentoController() {
@@ -54,8 +54,10 @@ public class PagamentoController extends HttpServlet {
 		}
 	}
 
-	private void delete(HttpServletRequest request, HttpServletResponse response) {
-		
+	private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		pagDAO.delete(id);
+		response.sendRedirect("pagamento");
 	}
 
 
@@ -76,11 +78,11 @@ public class PagamentoController extends HttpServlet {
 
 	protected void read(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		List<Pagamento> lista = pDAO.read();
+		List<Pagamento> lista = pagDAO.read();
 
 		request.setAttribute("listaPagamento", lista);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("./views/pagamentos/pagamento.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("./view/pagamento/index.jsp");
 		rd.forward(request, response);
 	}
 }

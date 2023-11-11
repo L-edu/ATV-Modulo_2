@@ -32,11 +32,10 @@ List<Pacote> lista = (List<Pacote>) request.getAttribute("Pacotes");
 		<ul class="nav justify-content-center">
 			<li class="nav-item"><a class="nav-link active"
 				aria-current="page" href="./index.html">Home</a></li>
-			<li class="nav-item"><a class="nav-link" href="./usuario">Usuario</a>
-			</li>
+			<li class="nav-item"><a class="nav-link" href="./usuario">Usuario</a></li>
 			<li class="nav-item"><a class="nav-link" href="./pacote">Pacotes</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">Reservas</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">Pagamentos</a></li>
+			<li class="nav-item"><a class="nav-link" href="./reserva">Reservas</a></li>
+			<li class="nav-item"><a class="nav-link" href="./pagamento">Pagamentos</a></li>
 		</ul>
 
 		<section class="container">
@@ -61,7 +60,6 @@ List<Pacote> lista = (List<Pacote>) request.getAttribute("Pacotes");
 								<td>${p.destino}</td>
 								<td>${p.preco}</td>
 
-
 								<td>
 									<div class="d-flex">
 										<button data-bs-target="#pacote-edit${p.id}"
@@ -69,19 +67,18 @@ List<Pacote> lista = (List<Pacote>) request.getAttribute("Pacotes");
 											<i class="ri-file-edit-line"></i>
 										</button>
 
-										<a href="pacote-delete?id=${pid}" class="mx-1"
+										<a href="pacote-delete?id=${p.id}" class="mx-1"
 											title="Cancelar"
-											onclick="return confirm('Deseja excluir: ${p.destino}.')"> <i
-											class="ri-delete-bin-2-line"></i>
+											onclick="return confirm('Deseja excluir: ${p.destino}.')">
+											<i class="ri-delete-bin-2-line"></i>
 										</a>
 									</div>
 								</td>
 							</tr>
 
 							<!-- modal editar -->
-							<div class="modal fade" id="pacote-edit${u.id}"
-								tabindex="-1" aria-labelledby="exampleModalLabel"
-								aria-hidden="true">
+							<div class="modal fade" id="pacote-edit${p.id}" tabindex="-1"
+								aria-labelledby="exampleModalLabel" aria-hidden="true">
 								<div class="modal-dialog modal-dialog-centered">
 									<div class="modal-content">
 										<div class="modal-header">
@@ -93,7 +90,7 @@ List<Pacote> lista = (List<Pacote>) request.getAttribute("Pacotes");
 
 										<div class="modal-body">
 
-											<form action="./pacote-update">
+											<form action="./usuario-update">
 												<h2 class="text-center">Atualização</h2>
 												<div class="form-group mb-3">
 													<label for="nome" class="form-label"> Id </label> <input
@@ -102,20 +99,20 @@ List<Pacote> lista = (List<Pacote>) request.getAttribute("Pacotes");
 												</div>
 
 												<div class="form-group mb-3">
-													<label for="destino" class="form-label"> Destino </label> <input
-														type="text" id="destino" name="destino" class="form-control"
-														value="${p.destino}" />
+													<label for="nome" class="form-label"> Destino </label> <input
+														type="text" id="destino" name="destino"
+														class="form-control" value="${p.destino}" />
 												</div>
 
 												<div class="form-group mb-3">
-													<label for="preco" class="form-label"> Email </label> <input
+													<label for="email" class="form-label"> Preço </label> <input
 														type="text" id="preco" name="preco" class="form-control"
 														value="${p.preco}" />
 												</div>
 
 												<button type="submit" class="btn btn-primary">
 													Enviar</button>
-												<a href="./Pacote" class="btn btn-danger"
+												<a href="./pacote" class="btn btn-danger"
 													style="margin-left: 10px"> Cancelar </a>
 											</form>
 
@@ -125,13 +122,11 @@ List<Pacote> lista = (List<Pacote>) request.getAttribute("Pacotes");
 								</div>
 							</div>
 							<!-- fim do modal editar-->
-
 						</jstl:forEach>
 					</tbody>
 				</table>
 			</div>
 		</section>
-
 	</main>
 
 	<footer class="text-center">

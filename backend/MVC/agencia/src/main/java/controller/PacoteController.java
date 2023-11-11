@@ -67,7 +67,7 @@ public class PacoteController extends HttpServlet {
 
 	protected void read(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Pacote> lista = pDAO.read();
-		request.setAttribute("listapacote", lista);
+		request.setAttribute("listaPacote", lista);
 		RequestDispatcher rd = request.getRequestDispatcher("./view/pacote/index.jsp");
 		rd.forward(request, response);
 	}
