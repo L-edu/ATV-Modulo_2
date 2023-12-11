@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="icon" href="./assets/img/book-2-fill.svg" type="image/svg" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+	<title>Reservas</title>
+</head>
+
+<body>
+	<main>
+		<header class="header">
+			<h1>Reservas</h1>
+		</header>
+
+		<ul class="nav justify-content-center">
+			<li class="nav-item">
+				<a class="nav-link active" aria-current="page" href="">Home</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="">Usuarios</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="">Pacotes</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="">Reservas</a>
+			</li>
+		</ul>
+
+		<section class="container">
+
+			<div class="p-4">
+				<button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary mb-2 botao1"> Nova Reserva </button>
+
+				<table class="table table-responsive table-hover">
+					<thead class="table-dark">
+						<tr>
+							<th scope="col">id</th>
+							<th scope="col">Usuario</th>
+							<th scope="col">Pacote</th>
+							<th scope="col">Data de Ida</th>
+							<th scope="col">Data de Volta</th>
+							<th scope="col">Quantidade</th>
+							<th scope="col">Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="r : ${reservas}">
+							<td th:text="${r.id}"></td>
+							<td th:text="${r.usuario.nome}"></td>
+							<td th:text="${r.pacote.destino}"></td>
+							<td th:text="${r.dataInicio}"></td>
+							<td th:text="${r.dataFim}"></td>
+							<td th:text="${r.qtdPessoa}"></td>
+							<td>
+								<div class="d-flex">
+									<a th:href="@{'/reservas'}" data-bs-toggle="modal"
+										th:data-bs-target="'#exampleModal' + ${r.id}" class="mx-1" title="Editar">
+										<i class="ri-file-edit-line"></i>
+									</a>
+									<a th:href="@{'/reservas/' + ${r.id} + '/excluir'}" class="mx-1" title="Cancelar"
+										onclick="return confirm('Deseja excluir o usuario ?')">
+										<i class="ri-delete-bin-2-line"></i>
+									</a>
+
+									<!-- Modal Update-->
+									<div class="modal fade" th:id="'exampleModal' + ${u.id}" tabindex="-1"
+										aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h1 class="modal-title fs-5" id="exampleModalLabel">Atualizar Reserva</h1>
+													<button type="button" class="btn-close" data-bs-dismiss="modal"
+														aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<form th:action="@{/reservas/cadastrar}" method="post"
+														th:object="${reserva}">
+														<h2 class="text-center">Preencha os campos</h2>
+														<input type="hidden" id="id" name="id" class="form-control"
+															th:value="${r.id}" />
+														<div class="form-group mb-3">
+															<label for="dataInicio" class="form-label">
+																Data de Ida
+															</label>
+															<input type="date" id="dataInicio" name="dataInicio"
+																class="form-control" th:value="${r.dataInicio}" />
+														</div>
+														<div class="form-group mb-3">
+															<label for="dataFim" class="form-label">
+																Data de Volta
+															</label>
+															<input type="date" id="dataFim" name="dataFim"
+																class="form-control" th:value="${r.dataFim}" />
+														</div>
+
+														<div class="form-group mb-3">
+															<label for="orcamento" class="form-label">
+																Orçamento
+															</label>
+															<input type="text" id="orcamento" name="orcamento"
+																class="form-control" th:value="${r.orcamento}" />
+														</div>
+														
+														<div class="form-group mb-3">
+															<label for="qtdPessoa" class="form-label">
+																Qauntidade de pessoas
+															</label>
+															<input type="number" id="qtdPessoa" name="qtdPessoa"
+																class="form-control" th:value="${r.qtdPessoa}" />
+														</div>
+														<button type="submit" class="btn btn-primary">
+															Enviar
+														</button>
+														<a href="./reservas" class="btn btn-danger"
+															style="margin-left: 10px">
+															Cancelar
+														</a>
+													</form>
+												</div>
+
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</section>
+
+		<!-- Modal Create -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel">Criar Reserva</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form th:action="@{/reservas/cadastrar}" method="post" th:object="${reserva}">
+							<h2 class="text-center">Preencha os campos</h2>
+							<div class="form-group mb-3">
+								<label for="dataInicio" class="form-label">
+									Data de Ida
+								</label>
+								<input type="date" th:id="dataInicio" th:name="dataInicio" class="form-control"
+									th:field="*{dataInicio}" />
+							</div>
+
+							<div class="form-group mb-3">
+								<label for="dataFim" class="form-label">
+									Data de Volta
+								</label>
+								<input type="date" th:id="dataFim" th:name="dataFim" class="form-control"
+									th:field="*{dataFim}" />
+							</div>
+
+							<div class="form-group mb-3">
+								<label for="orcamento" class="form-label">
+									Orçamento
+								</label>
+								<input type="text" th:id="orcamento" th:name="orcamento" class="form-control"
+									th:field="*{orcamento}" />
+							</div>
+
+							<div class="form-group mb-3">
+								<label for="qtdPessoa" class="form-label">
+									Quantidade de Pessoas
+								</label>
+								<input type="qtdPessoa" th:id="qtdPessoa" th:name="qtdPessoa" class="form-control"
+									th:field="*{qtdPessoa}" />
+							</div>
+
+							<button type="submit" class="btn btn-primary">
+								Enviar
+							</button>
+							<a href="./reservas" class="btn btn-danger" style="margin-left: 10px">
+								Cancelar
+							</a>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</main>
+	<footer>
+	</footer>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>
