@@ -14,9 +14,7 @@ import lombok.EqualsAndHashCode;
 
 
 
-@Data
 @Entity
-@EqualsAndHashCode(of = "id")
 @Table(name = "usuario")
 public class Usuario {
 
@@ -27,7 +25,7 @@ public class Usuario {
 	@Column(nullable = false, length = 80)
 	private String nome;
 
-	@Column(nullable = false, length = 80, unique = true)
+	@Column(nullable = false, length = 80)
 	private String email;
 
 	@Column(nullable = false, length = 15)
@@ -38,4 +36,68 @@ public class Usuario {
 	
 	@OneToMany(mappedBy = "usuario")
 	private List <Reserva> reserva;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public List<Reserva> getReserva() {
+		return reserva;
+	}
+
+	public void setReserva(List<Reserva> reserva) {
+		this.reserva = reserva;
+	}
+
+	public Usuario(Long id, String nome, String email, String telefone, String senha, List<Reserva> reserva) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.email = email;
+		this.telefone = telefone;
+		this.senha = senha;
+		this.reserva = reserva;
+	}
+
+	public Usuario() {
+		super();
+	}
+	
+	
 }

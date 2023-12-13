@@ -2,7 +2,11 @@ package com.btour.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,44 +32,29 @@ public class ReservaController {
 	public ModelAndView reserva() {
 
 		ModelAndView modelAndView = new ModelAndView("views/reservas/index.html");
+		modelAndView.addObject("listaUsuario", usuarioRepository.findAll());
+		modelAndView.addObject("listaPacote", pacoteRepository.findAll());
 		modelAndView.addObject("reservas", reservaRepository.findAll());
 		modelAndView.addObject("reserva", new Reserva());
 		return modelAndView;
 	}
 
-	@GetMapping("/{id}")
-	public ModelAndView detalhes(@PathVariable Long id) {
-		ModelAndView modelAndView = new ModelAndView("views/reservas/detalhes.html");
-		modelAndView.addObject("reserva", reservaRepository.getReferenceById(id));
-		return modelAndView;
+	@PostMapping("/cadastrar")
+	public String cadastrar(@Validated @ModelAttribute("reservas") Reserva reserva, BindingResult result,
+			ModelMap model) {
 
-	}
+		if (result.hasErrors()) {
+			return "reservas";
+		}
 
-	@GetMapping("/cadastrar")
-	public ModelAndView cadastrar() {
-		ModelAndView modelAndView = new ModelAndView("views/reservas/cadastro.html");
+		model.addAttribute("id", reserva.getId());
+		model.addAttribute("dataInicio", reserva.getDataInicio());
+		model.addAttribute("dataFim", reserva.getDataFim());
+		model.addAttribute("qtdPessoa", reserva.getQtdPessoa());
+		model.addAttribute("usuario", reserva.getUsuario());
+		model.addAttribute("pacote", reserva.getPacote());
 
-		modelAndView.addObject("reserva", new Reserva());
-		modelAndView.addObject("usuario", usuarioRepository.findAll());
-		modelAndView.addObject("pacote", pacoteRepository.findByDestino("destino"));
-		return modelAndView;
-	}
-
-	@GetMapping("/{id}/editar")
-	public ModelAndView editar(@PathVariable Long id) {
-		ModelAndView modelAndView = new ModelAndView("views/reservas/cadastro.html");
-
-		modelAndView.addObject("reserva", reservaRepository.getReferenceById(id));
-		modelAndView.addObject("usuario", usuarioRepository.findAll());
-		modelAndView.addObject("pacote", pacoteRepository.findByDestino("destino"));
-
-		return modelAndView;
-	}
-
-	@PostMapping({ "/cadastrar", "/{id}/editar" })
-	public String salvar(Reserva reserva) {
 		reservaRepository.save(reserva);
-
 		return "redirect:/reservas";
 	}
 
@@ -73,6 +62,6 @@ public class ReservaController {
 	public String excluir(@PathVariable Long id) {
 		reservaRepository.deleteById(id);
 
-		return "redirect:/reservas";
+		return "redirect:/compras";
 	}
 }

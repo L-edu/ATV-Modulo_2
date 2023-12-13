@@ -16,9 +16,8 @@ import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-@Data
+
 @Entity
-@EqualsAndHashCode(of = "id")
 @Table(name = "pacote")
 public class Pacote {
 	
@@ -35,4 +34,50 @@ public class Pacote {
 	
 	@OneToMany(mappedBy = "pacote")
 	private List <Reserva> reserva;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getDestino() {
+		return destino;
+	}
+
+	public void setDestino(String destino) {
+		this.destino = destino;
+	}
+
+	public BigDecimal getPreco() {
+		return preco;
+	}
+
+	public void setPreco(BigDecimal preco) {
+		this.preco = preco;
+	}
+
+	public List<Reserva> getReserva() {
+		return reserva;
+	}
+
+	public void setReserva(List<Reserva> reserva) {
+		this.reserva = reserva;
+	}
+
+	public Pacote(Long id, String destino, BigDecimal preco, List<Reserva> reserva) {
+		super();
+		this.id = id;
+		this.destino = destino;
+		this.preco = preco;
+		this.reserva = reserva;
+	}
+
+	public Pacote() {
+		super();
+	}
+	
+	
 }

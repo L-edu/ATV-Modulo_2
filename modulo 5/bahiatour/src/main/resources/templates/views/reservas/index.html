@@ -34,27 +34,28 @@
 		<section class="container">
 
 			<div class="p-4">
-				<button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary mb-2 botao1"> Nova Reserva </button>
+				<button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary mb-2 botao1"> Nova
+					Reserva </button>
 
 				<table class="table table-responsive table-hover">
 					<thead class="table-dark">
 						<tr>
 							<th scope="col">id</th>
+							<th scope="col">Data Inicio</th>
+							<th scope="col">Data Volta</th>
 							<th scope="col">Usuario</th>
-							<th scope="col">Pacote</th>
-							<th scope="col">Data de Ida</th>
-							<th scope="col">Data de Volta</th>
-							<th scope="col">Quantidade</th>
+							<th scope="col">Destino</th>
+							<th scope="col">Quantidade de Pessoas</th>
 							<th scope="col">Ações</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="r : ${reservas}">
 							<td th:text="${r.id}"></td>
-							<td th:text="${r.usuario.nome}"></td>
-							<td th:text="${r.pacote.destino}"></td>
 							<td th:text="${r.dataInicio}"></td>
 							<td th:text="${r.dataFim}"></td>
+							<td th:text="${r.usuario.nome}"></td>
+							<td th:text="${r.pacote.destino}"></td>
 							<td th:text="${r.qtdPessoa}"></td>
 							<td>
 								<div class="d-flex">
@@ -62,64 +63,66 @@
 										th:data-bs-target="'#exampleModal' + ${r.id}" class="mx-1" title="Editar">
 										<i class="ri-file-edit-line"></i>
 									</a>
-									<a th:href="@{'/reservas/' + ${r.id} + '/excluir'}" class="mx-1" title="Cancelar"
-										onclick="return confirm('Deseja excluir o usuario ?')">
+									<a th:href="@{'/reservas/' + ${r.id} + '/excluir'}" class="mx-1" title="Deletar"
+										onclick="return confirm('Deseja excluir a reserva ?')">
 										<i class="ri-delete-bin-2-line"></i>
 									</a>
 
-									<!-- Modal Update-->
-									<div class="modal fade" th:id="'exampleModal' + ${u.id}" tabindex="-1"
+									<!-- Modal -->
+									<div class="modal fade" th:id="'exampleModal' + ${r.id}" tabindex="-1"
 										aria-labelledby="exampleModalLabel" aria-hidden="true">
 										<div class="modal-dialog">
 											<div class="modal-content">
 												<div class="modal-header">
-													<h1 class="modal-title fs-5" id="exampleModalLabel">Atualizar Reserva</h1>
+													<h1 class="modal-title fs-5" id="exampleModalLabel">Modal
+														title</h1>
 													<button type="button" class="btn-close" data-bs-dismiss="modal"
 														aria-label="Close"></button>
 												</div>
 												<div class="modal-body">
 													<form th:action="@{/reservas/cadastrar}" method="post"
-														th:object="${reserva}">
-														<h2 class="text-center">Preencha os campos</h2>
+														th:object="${reservas}">
+														<h2 class="text-center">Editar</h2>
 														<input type="hidden" id="id" name="id" class="form-control"
 															th:value="${r.id}" />
 														<div class="form-group mb-3">
-															<label for="dataInicio" class="form-label">
-																Data de Ida
-															</label>
+															<label for="dataInicio" class="form-label"> Data de Ida</label>
 															<input type="date" id="dataInicio" name="dataInicio"
 																class="form-control" th:value="${r.dataInicio}" />
 														</div>
 														<div class="form-group mb-3">
-															<label for="dataFim" class="form-label">
-																Data de Volta
-															</label>
-															<input type="date" id="dataFim" name="dataFim"
-																class="form-control" th:value="${r.dataFim}" />
+															<label for="dataFim" class="form-label"> Data de
+																Volta</label> <input type="date" id="dataFim"
+																name="dataFim" class="form-control"
+																th:value="${r.dataFim}" />
 														</div>
 
 														<div class="form-group mb-3">
-															<label for="orcamento" class="form-label">
-																Orçamento
-															</label>
-															<input type="text" id="orcamento" name="orcamento"
-																class="form-control" th:value="${r.orcamento}" />
+															<label for="usuario" class="form-label"> Usuario </label>
+															<select id="usuario" name="usuario.id" class="form-control">
+																<option th:value="${r.usuario.id}"
+																	th:text="${r.usuario.nome}"></option>
+
+																<option th:each="u : ${listaUsuario}" th:value="${u.id}"
+																	th:text="${u.nome}"></option>
+
+															</select>
 														</div>
-														
 														<div class="form-group mb-3">
-															<label for="qtdPessoa" class="form-label">
-																Qauntidade de pessoas
-															</label>
-															<input type="number" id="qtdPessoa" name="qtdPessoa"
-																class="form-control" th:value="${r.qtdPessoa}" />
+															<label for="pacote" class="form-label"> Pacote </label>
+															<select id="pacote" name="pacote.id" class="form-control">
+																<option th:value="${p.pacote.id}"
+																	th:text="${p.pacote.destino}"></option>
+
+																<option th:each="p : ${listaPacote}" th:value="${p.id}"
+																	th:text="${p.destino}"></option>
+
+															</select>
 														</div>
-														<button type="submit" class="btn btn-primary">
-															Enviar
-														</button>
-														<a href="./reservas" class="btn btn-danger"
-															style="margin-left: 10px">
-															Cancelar
-														</a>
+
+														<button type="submit" class="btn btn-primary">Enviar</button>
+														<a href="./compras" class="btn btn-danger"
+															style="margin-left: 10px"> Cancelar </a>
 													</form>
 												</div>
 
@@ -136,55 +139,54 @@
 			</div>
 		</section>
 
-		<!-- Modal Create -->
+		<!-- Modal -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="exampleModalLabel">Criar Reserva</h1>
+						<h1 class="modal-title fs-5" id="exampleModalLabel">Modal
+							title</h1>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<form th:action="@{/reservas/cadastrar}" method="post" th:object="${reserva}">
-							<h2 class="text-center">Preencha os campos</h2>
+						<form th:action="@{/reservas/cadastrar}" method="post" th:object="${reservas}">
+							<h2 class="text-center">Criar</h2>
 							<div class="form-group mb-3">
-								<label for="dataInicio" class="form-label">
-									Data de Ida
-								</label>
-								<input type="date" th:id="dataInicio" th:name="dataInicio" class="form-control"
-									th:field="*{dataInicio}" />
+								<label for="dataInicio" class="form-label"> Data de Ida</label> <input type="date"
+									id="dataInicio" name="dataInicio" class="form-control" value="" />
+							</div>
+							<div class="form-group mb-3">
+								<label for="dataFim" class="form-label"> Data de Volta</label> <input type="date"
+									id="dataFim" name="dataFim" class="form-control" value="" />
+							</div>
+							<div class="form-group mb-3">
+								<label for="qtdPessoa" class="form-label"> Quantidade</label> <input type="number"
+									id="qtdPessoa" name="qtdPessoa" class="form-control" value="" />
 							</div>
 
 							<div class="form-group mb-3">
-								<label for="dataFim" class="form-label">
-									Data de Volta
-								</label>
-								<input type="date" th:id="dataFim" th:name="dataFim" class="form-control"
-									th:field="*{dataFim}" />
-							</div>
+								<label for="pacote" class="form-label"> Pacote </label>
+								<select id="pacote" name="pacote.id" class="form-control">
+									<option value="DEFAULT">Escolha um pacote</option>
 
+									<option th:each="p : ${listaPacote}" th:value="${p.id}" th:text="${p.destino}">
+									</option>
+
+								</select>
+							</div>
 							<div class="form-group mb-3">
-								<label for="orcamento" class="form-label">
-									Orçamento
-								</label>
-								<input type="text" th:id="orcamento" th:name="orcamento" class="form-control"
-									th:field="*{orcamento}" />
+								<label for="usuario" class="form-label"> Usuario </label>
+								<select id="usuario" name="usuario.id" class="form-control">
+									<option value="DEFAULT">Escolha um Usuario</option>
+
+									<option th:each="u : ${listaUsuario}" th:value="${u.id}" th:text="${u.nome}">
+									</option>
+
+								</select>
 							</div>
 
-							<div class="form-group mb-3">
-								<label for="qtdPessoa" class="form-label">
-									Quantidade de Pessoas
-								</label>
-								<input type="qtdPessoa" th:id="qtdPessoa" th:name="qtdPessoa" class="form-control"
-									th:field="*{qtdPessoa}" />
-							</div>
-
-							<button type="submit" class="btn btn-primary">
-								Enviar
-							</button>
-							<a href="./reservas" class="btn btn-danger" style="margin-left: 10px">
-								Cancelar
-							</a>
+							<button type="submit" class="btn btn-primary">Enviar</button>
+							<a href="./reservas" class="btn btn-danger" style="margin-left: 10px"> Cancelar </a>
 						</form>
 					</div>
 
