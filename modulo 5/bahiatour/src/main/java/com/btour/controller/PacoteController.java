@@ -1,5 +1,7 @@
 package com.btour.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,20 +24,29 @@ public class PacoteController {
 	@GetMapping
 	public ModelAndView pacote() {
 		ModelAndView modelAndView = new ModelAndView("views/pacotes/index.html");
-		modelAndView.addObject("pacotes",pacoteRepository.findAll());
-		modelAndView.addObject("pacote", new Pacote());
+		List<Pacote> pacotes = pacoteRepository.findAll();
+		modelAndView.addObject("pacotes", pacotes);
 		return modelAndView;
 	}
 
-	@PostMapping("/cadastrar")
-	public String cadastrar(Pacote pacote) {
-		pacoteRepository.save(pacote);
-		return "redirect:/pacotes";
+	@GetMapping("/cadastrar")
+	public ModelAndView cadastrar() {
+		ModelAndView modelAndView = new ModelAndView("views/pacotes/create");
+		modelAndView.addObject("pacotes", new Pacote());
+		return modelAndView;
 	}
-	
+
+	@PostMapping({"/cadastrar", "/{id}/editar"})
+	public ModelAndView cadastrar(Pacote pacote) {
+		ModelAndView modelAndView = new ModelAndView("redirect:/pacotes");
+		pacoteRepository.save(pacote);
+		return modelAndView;
+	}
+
 	@GetMapping("/{id}/excluir")
-	public String excluir(@PathVariable Long id) {
+	public ModelAndView excluir(@PathVariable Long id) {
+		ModelAndView modelAndView = new ModelAndView("redirect:/pacotes");
 		pacoteRepository.deleteById(id);
-		return "redirect:/pacotes";
+		return modelAndView;
 	}
 }

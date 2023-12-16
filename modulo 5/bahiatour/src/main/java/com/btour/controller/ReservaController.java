@@ -2,11 +2,7 @@ package com.btour.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,29 +35,26 @@ public class ReservaController {
 		return modelAndView;
 	}
 
-	@PostMapping("/cadastrar")
-	public String cadastrar(@Validated @ModelAttribute("reservas") Reserva reserva, BindingResult result,
-			ModelMap model) {
+	@GetMapping("/cadastrar")
+	public ModelAndView cadastrar() {
+		ModelAndView modelAndView = new ModelAndView("views/reservas/create");
+		modelAndView.addObject("reserva", new Reserva());
+		modelAndView.addObject("listaUsuario", usuarioRepository.findAll());
+		modelAndView.addObject("listaPacote", pacoteRepository.findAll());
+		return modelAndView;
+	}
 
-		if (result.hasErrors()) {
-			return "reservas";
-		}
-
-		model.addAttribute("id", reserva.getId());
-		model.addAttribute("dataInicio", reserva.getDataInicio());
-		model.addAttribute("dataFim", reserva.getDataFim());
-		model.addAttribute("qtdPessoa", reserva.getQtdPessoa());
-		model.addAttribute("usuario", reserva.getUsuario());
-		model.addAttribute("pacote", reserva.getPacote());
-
+	@PostMapping({"/cadastrar", "/{id}/editar"})
+	public ModelAndView cadastrar(Reserva reserva) {
 		reservaRepository.save(reserva);
-		return "redirect:/reservas";
+		ModelAndView modelAndView = new ModelAndView("redirect:/reservas");
+		return modelAndView;
 	}
 
 	@GetMapping("/{id}/excluir")
-	public String excluir(@PathVariable Long id) {
+	public ModelAndView excluir(@PathVariable Long id) {
+		ModelAndView modelAndView = new ModelAndView("redirect:/reservas");
 		reservaRepository.deleteById(id);
-
-		return "redirect:/compras";
+		return modelAndView;
 	}
 }

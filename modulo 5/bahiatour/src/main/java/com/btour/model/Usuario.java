@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
 
 
 
@@ -34,8 +34,8 @@ public class Usuario {
 	@Column(nullable = false, length = 15)
 	private String senha;
 	
-	@OneToMany(mappedBy = "usuario")
-	private List <Reserva> reserva;
+	//@OneToMany(mappedBy = "usuario")
+	//private List <Reserva> reserva;
 
 	public Long getId() {
 		return id;
@@ -77,22 +77,21 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-	public List<Reserva> getReserva() {
-		return reserva;
-	}
+	//public List<Reserva> getReserva() {
+	//	return reserva;
+	//}
 
-	public void setReserva(List<Reserva> reserva) {
-		this.reserva = reserva;
-	}
+	//public void setReserva(List<Reserva> reserva) {
+	//	this.reserva = reserva;
+	//}
 
-	public Usuario(Long id, String nome, String email, String telefone, String senha, List<Reserva> reserva) {
+	public Usuario(Long id, String nome, String email, String telefone, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
 		this.senha = senha;
-		this.reserva = reserva;
 	}
 
 	public Usuario() {

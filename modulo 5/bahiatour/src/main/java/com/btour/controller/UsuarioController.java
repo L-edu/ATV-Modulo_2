@@ -1,5 +1,7 @@
 package com.btour.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,27 +23,29 @@ public class UsuarioController {
 	@GetMapping
 	public ModelAndView usuario() {
 		ModelAndView modelAndView = new ModelAndView("views/usuarios/index.html");
-		modelAndView.addObject("usuarios", usuarioRepository.findAll());
-		modelAndView.addObject("usuario", new Usuario());
+		List<Usuario> usuarios = usuarioRepository.findAll();
+		modelAndView.addObject("usuarios", usuarios);
 		return modelAndView;
 	}
 
-	@GetMapping("/editar/{id}")
-	public ModelAndView usuarioById(@PathVariable Long id) {
-		ModelAndView modelAndView = new ModelAndView("views/usuarios/index.html");
-		modelAndView.addObject("usuarios", usuarioRepository.getReferenceById(id));
+	@GetMapping("/cadastrar")
+	public ModelAndView cadastrar() {
+		ModelAndView modelAndView = new ModelAndView("views/usuarios/create");
+		modelAndView.addObject("usuarios", new Usuario());
 		return modelAndView;
 	}
 
-	@PostMapping("/cadastrar")
-	public String cadastrar(Usuario usuario) {
+	@PostMapping({"/cadastrar", "/{id}/editar"})
+	public ModelAndView cadastrar(Usuario usuario) {
+		ModelAndView modelAndView = new ModelAndView("redirect:/usuarios");
 		usuarioRepository.save(usuario);
-		return "redirect:/usuarios";
+		return modelAndView;
 	}
 
 	@GetMapping("/{id}/excluir")
-	public String excluir(@PathVariable Long id) {
+	public ModelAndView excluir(@PathVariable Long id) {
+		ModelAndView modelAndView = new ModelAndView("redirect:/usuarios");
 		usuarioRepository.deleteById(id);
-		return "redirect:/usuarios";
+		return modelAndView;
 	}
 }

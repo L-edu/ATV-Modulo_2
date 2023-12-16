@@ -14,7 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
 
 
 @Entity
@@ -32,8 +32,8 @@ public class Pacote {
 	@NumberFormat(style = Style.CURRENCY, pattern = "#,##0.00")
 	private BigDecimal preco;
 	
-	@OneToMany(mappedBy = "pacote")
-	private List <Reserva> reserva;
+	//@OneToMany(mappedBy = "pacote")
+	//private List <Reserva> reserva;
 
 	public Long getId() {
 		return id;
@@ -59,20 +59,20 @@ public class Pacote {
 		this.preco = preco;
 	}
 
-	public List<Reserva> getReserva() {
-		return reserva;
-	}
+	//public List<Reserva> getReserva() {
+	//	return reserva;
+	//}
 
-	public void setReserva(List<Reserva> reserva) {
-		this.reserva = reserva;
-	}
+	//public void setReserva(List<Reserva> reserva) {
+	//	this.reserva = reserva;
+	//}
 
-	public Pacote(Long id, String destino, BigDecimal preco, List<Reserva> reserva) {
+	public Pacote(Long id, String destino, BigDecimal preco) {
 		super();
 		this.id = id;
 		this.destino = destino;
 		this.preco = preco;
-		this.reserva = reserva;
+		
 	}
 
 	public Pacote() {

@@ -34,8 +34,9 @@
 		<section class="container">
 
 			<div class="p-4">
-				<button data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary mb-2 botao1"> Novo
-					Pacote </button>
+				<div class="d-flex justify-content-end mt-4">
+					<a th:href="@{pacotes/cadastrar}" class="btn btn-primary mb-2 botao1"> Novo Pacote </a>
+				</div>
 
 				<table class="table table-responsive table-hover">
 					<thead class="table-dark">
@@ -117,47 +118,6 @@
 				</table>
 			</div>
 		</section>
-
-		<!-- Modal Create -->
-		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="exampleModalLabel">Criar Pacote</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<form th:action="@{/pacotes/cadastrar}" method="post" th:object="${pacote}">
-							<h2 class="text-center">Preencha os campos</h2>
-							<div class="form-group mb-3">
-								<label for="destino" class="form-label">
-									Destino
-								</label>
-								<input type="text" th:id="destino" th:name="destino" class="form-control"
-									th:field="*{destino}" />
-							</div>
-
-							<div class="form-group mb-3">
-								<label for="preco" class="form-label">
-									Preço
-								</label>
-								<input type="text" th:id="preco" th:name="preco" class="form-control"
-									th:field="*{preco}" />
-							</div>
-
-							<button type="submit" class="btn btn-primary">
-								Enviar
-							</button>
-							<a href="./pacotes" class="btn btn-danger" style="margin-left: 10px">
-								Cancelar
-							</a>
-						</form>
-					</div>
-
-				</div>
-			</div>
-		</div>
-
 	</main>
 	<footer>
 	</footer>

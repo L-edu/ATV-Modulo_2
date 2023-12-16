@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="assets/css/Style.css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+	<title>Cadastro</title>
+</head>
+
+<body>
+	<header>
+		<nav class="navbar bg-info navbar-dark navbar-expand-sm sticky-top">
+			<div class="container-fluid justify-content-around">
+				<a href="index.html" class="navbar-brand d-flex align-items-center">
+					<!-- Ícone do Bootstrap Icons -->
+					<i class="bi bi-airplane-engines fs-4 me-2"></i>AgeTravel
+				</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNavbar">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="menuNavbar">
+					<div class="navbar-nav ms-auto">
+						<a href="index.html" class="nav-link active">Home</a>
+						<a href="destino.html" class="nav-link active">Destinos</a>
+						<a href="promocao.html" class="nav-link active">Promoções</a>
+						<a href="contato.html" class="nav-link active">Contato</a>
+						<a href="cadastro.html" class="nav-link active">Cadastro</a>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="container mt-5">
+		<div class="row">
+			<div class="col-md-6">
+				<form method="post" th:object="${reserva}">
+					<div class="form-group mb-3">
+						<label for="dataInicio" class="form-label"> Data de Ida </label>
+						<input type="date" class="form-control" id="dataInicio" th:field="*{dataInicio}" required>
+					</div>
+					<div class="form-group mb-3">
+						<label for="dataFim" class="form-label"> Data de Volta </label>
+						<input type="date" class="form-control" id="dataFim" th:field="*{dataFim}" required>
+					</div>
+
+					<div class="form-group mb-3">
+						<label for="qtdPessoa" class="form-label"> Quantidade de pessoas </label>
+						<input type="number" class="form-control" id="qtdPessoa" th:field="*{qtdPessoa}" required>
+					</div>
+
+					<div class="form-group mb-3">
+						<label for="usuario" class="form-label"> Usuario </label>
+						<select th:field="*{usuario}" class="form-control">
+							<option th:each="usuario : ${listaUsuario}" th:text="${usuario.nome}" th:value="${usuario.id}">
+							</option>
+						</select>
+					</div>
+					<div class="form-group mb-3">
+						<label for="destino" class="form-label"> Pacote </label>
+						<select th:field="*{pacote}" class="form-control">
+							<option th:each="pacote : ${listaPacote}" th:text="${pacote.destino}" th:value="${pacote.id}">
+							</option>
+						</select>
+					</div>
+
+					<button type="submit" class="btn btn-primary">Enviar</button>
+					<a href="/reservas" class="btn btn-danger" style="margin-left: 10px"> Cancelar </a>
+				</form>
+			</div>
+			<div class="col-md-6">
+				<img src="image/cadastro.png" class="img-fluid" alt="Imagem de fundo">
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>
