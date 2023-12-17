@@ -1,7 +1,6 @@
 package com.btour.model;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
@@ -11,9 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.Data;
 
 
 
@@ -31,6 +28,18 @@ public class Pacote {
 	@Column(nullable = false)
 	@NumberFormat(style = Style.CURRENCY, pattern = "#,##0.00")
 	private BigDecimal preco;
+	
+	public Pacote(Long id, String destino, BigDecimal preco) {
+		super();
+		this.id = id;
+		this.destino = destino;
+		this.preco = preco;
+		
+	}
+
+	public Pacote() {
+		super();
+	}
 
 	public Long getId() {
 		return id;
@@ -55,26 +64,4 @@ public class Pacote {
 	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
 	}
-
-	//public List<Reserva> getReserva() {
-	//	return reserva;
-	//}
-
-	//public void setReserva(List<Reserva> reserva) {
-	//	this.reserva = reserva;
-	//}
-
-	public Pacote(Long id, String destino, BigDecimal preco) {
-		super();
-		this.id = id;
-		this.destino = destino;
-		this.preco = preco;
-		
-	}
-
-	public Pacote() {
-		super();
-	}
-	
-	
 }

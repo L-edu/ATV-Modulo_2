@@ -1,15 +1,11 @@
 package com.btour.model;
 
-import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.Data;
 
 
 
@@ -34,9 +30,19 @@ public class Usuario {
 	@Column(nullable = false, length = 15)
 	private String senha;
 	
-	//@OneToMany(mappedBy = "usuario")
-	//private List <Reserva> reserva;
+	public Usuario(Long id, String nome, String email, String telefone, String senha) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.email = email;
+		this.telefone = telefone;
+		this.senha = senha;
+	}
 
+	public Usuario() {
+		super();
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -76,27 +82,5 @@ public class Usuario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
-	//public List<Reserva> getReserva() {
-	//	return reserva;
-	//}
-
-	//public void setReserva(List<Reserva> reserva) {
-	//	this.reserva = reserva;
-	//}
-
-	public Usuario(Long id, String nome, String email, String telefone, String senha) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.email = email;
-		this.telefone = telefone;
-		this.senha = senha;
-	}
-
-	public Usuario() {
-		super();
-	}
-	
 	
 }

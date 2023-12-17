@@ -23,6 +23,6 @@ public class SiteController {
 
 	@GetMapping({ "/cadastro" })
 	public String cadastro() {
-		return "usuarios/create";
+		return "views/usuarios/create";
 	}
 }

@@ -2,133 +2,132 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="icon" href="./assets/img/book-2-fill.svg" type="image/svg" />
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-	<link rel="stylesheet" href="../styles/reset.css" />
-	<link rel="stylesheet" href="../styles/stylecrud.css" />
-	<title>Pacotes</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./assets/img/book-2-fill.svg" type="image/svg" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/reset.css" />
+    <link rel="stylesheet" href="../styles/stylecrud.css" />
+    <title>Pacotes</title>
 </head>
 
 <body>
-	<main>
-		<header class="header">
-			<h1>Pacotes</h1>
-		</header>
+    <main>
+        <header class="header text-center">
+            <h1>Pacotes</h1>
+        </header>
 
-		<ul class="nav justify-content-center">
-			<li class="nav-item">
-				<a class="nav-link active" aria-current="page" href="">Home</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" th:href="@{usuarios}">Usuarios</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" th:href="@{pacotes}">Pacotes</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" th:href="@{reservas}">Reservas</a>
-			</li>
-		</ul>
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{usuarios}">Usuarios</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{pacotes}">Pacotes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{reservas}">Reservas</a>
+            </li>
+        </ul>
 
-		<section class="container">
+        <section class="container mt-4">
+            <div class="p-4">
+                <div class="d-flex justify-content-end mb-4">
+                    <a th:href="@{pacotes/cadastrar}" class="btn btn-primary mb-2 botao1"> Novo Pacote </a>
+                </div>
 
-			<div class="p-4">
-				<div class="d-flex justify-content-end mt-4">
-					<a th:href="@{pacotes/cadastrar}" class="btn btn-primary mb-2 botao1"> Novo Pacote </a>
-				</div>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">id</th>
+                                <th scope="col">Destino</th>
+                                <th scope="col">Preço</th>
+                                <th scope="col">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="p : ${pacotes}">
+                                <td th:text="${p.id}"></td>
+                                <td th:text="${p.destino}"></td>
+                                <td th:text="${p.preco}"></td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a th:data-bs-toggle="'modal'" th:data-bs-target="'#exampleModal' + ${p.id}"
+                                            class="btn btn-primary btn-sm mx-1" title="Editar">
+                                            <i class="ri-file-edit-line"></i> Editar
+                                        </a>
+                                        <a th:href="@{'/pacotes/' + ${p.id} + '/excluir'}"
+                                            class="btn btn-danger btn-sm mx-1" title="Cancelar"
+                                            onclick="return confirm('Deseja excluir o pacote ?')">
+                                            <i class="ri-delete-bin-2-line"></i> Excluir
+                                        </a>
+                                    </div>
 
-				<table class="table table-responsive table-hover">
-					<thead class="table-dark">
-						<tr>
-							<th scope="col">id</th>
-							<th scope="col">Destino</th>
-							<th scope="col">Preço</th>
-							<th scope="col">Ações</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="p : ${pacotes}">
-							<td th:text="${p.id}"></td>
-							<td th:text="${p.destino}"></td>
-							<td th:text="${p.preco}"></td>
-							<td>
-								<div class="d-flex">
-									<button th:href="@{'/pacotes'}" data-bs-toggle="modal"
-										th:data-bs-target="'#exampleModal' + ${p.id}"
-										class="btn btn-primary btn-sm mx-1" title="Editar">
-										<i class="ri-file-edit-line"></i> Editar
-									</button>
-									<button th:href="@{'/pacotes/' + ${p.id} + '/excluir'}"
-										class="btn btn-danger btn-sm mx-1" title="Cancelar"
-										onclick="return confirm('Deseja excluir o pacote ?')">
-										<i class="ri-delete-bin-2-line"></i> Cancelar
-									</button>
-								</div>
+                                    <!-- Modal Update-->
+                                    <div class="modal fade" th:id="'exampleModal' + ${p.id}" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Atualizar Pacote
+                                                    </h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form th:action="@{/pacotes/cadastrar}" method="post"
+                                                        th:object="${pacote}">
+                                                        <h2 class="text-center">Preencha os campos</h2>
+                                                        <input type="hidden" id="id" name="id" class="form-control"
+                                                            th:value="${p.id}" />
+                                                        <div class="form-group mb-3">
+                                                            <label for="nome" class="form-label">
+                                                                Destino
+                                                            </label>
+                                                            <input type="text" id="destino" name="destino"
+                                                                class="form-control" th:value="${p.destino}" />
+                                                        </div>
 
+                                                        <div class="form-group mb-3">
+                                                            <label for="preco" class="form-label">
+                                                                Preço
+                                                            </label>
+                                                            <input type="text" id="preco" name="preco"
+                                                                class="form-control" th:value="${p.preco}" />
+                                                        </div>
 
-								<!-- Modal Update-->
-								<div class="modal fade" th:id="'exampleModal' + ${p.id}" tabindex="-1"
-									aria-labelledby="exampleModalLabel" aria-hidden="true">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h1 class="modal-title fs-5" id="exampleModalLabel">Atualizar Pacote
-												</h1>
-												<button type="button" class="btn-close" data-bs-dismiss="modal"
-													aria-label="Close"></button>
-											</div>
-											<div class="modal-body">
-												<form th:action="@{/pacotes/cadastrar}" method="post"
-													th:object="${pacote}">
-													<h2 class="text-center">Preencha os campos</h2>
-													<input type="hidden" id="id" name="id" class="form-control"
-														th:value="${p.id}" />
-													<div class="form-group mb-3">
-														<label for="nome" class="form-label">
-															Destino
-														</label>
-														<input type="text" id="destino" name="destino"
-															class="form-control" th:value="${p.destino}" />
-													</div>
+                                                        <button type="submit" class="btn btn-primary">
+                                                            Enviar
+                                                        </button>
+                                                        <a href="./usuarios" class="btn btn-danger"
+                                                            style="margin-left: 10px">
+                                                            Cancelar
+                                                        </a>
+                                                    </form>
+                                                </div>
 
-													<div class="form-group mb-3">
-														<label for="preco" class="form-label">
-															Preço
-														</label>
-														<input type="text" id="preco" name="preco" class="form-control"
-															th:value="${p.preco}" />
-													</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
 
-													<button type="submit" class="btn btn-primary">
-														Enviar
-													</button>
-													<a href="./usuarios" class="btn btn-danger"
-														style="margin-left: 10px">
-														Cancelar
-													</a>
-												</form>
-											</div>
+    <footer class="text-center mt-5">
+        <p>&copy; 2023 Bahia Tour. Todos os direitos reservados.</p>
+    </footer>
 
-										</div>
-									</div>
-								</div>
-
-			</div>
-			</td>
-			</tr>
-
-			</tbody>
-			</table>
-			</div>
-		</section>
-	</main>
-	<footer>
-	</footer>
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>
