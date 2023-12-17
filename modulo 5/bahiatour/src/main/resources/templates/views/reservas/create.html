@@ -1,83 +1,92 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="assets/css/Style.css" />
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-	<title>Cadastro</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
+    <title>Cadastro de Reservas</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .container-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+
+        form {
+            width: 50%;
+        }
+    </style>
 </head>
 
 <body>
-	<header>
-		<nav class="navbar bg-info navbar-dark navbar-expand-sm sticky-top">
-			<div class="container-fluid justify-content-around">
-				<a href="index.html" class="navbar-brand d-flex align-items-center">
-					<!-- Ícone do Bootstrap Icons -->
-					<i class="bi bi-airplane-engines fs-4 me-2"></i>AgeTravel
-				</a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNavbar">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="menuNavbar">
-					<div class="navbar-nav ms-auto">
-						<a href="index.html" class="nav-link active">Home</a>
-						<a href="destino.html" class="nav-link active">Destinos</a>
-						<a href="promocao.html" class="nav-link active">Promoções</a>
-						<a href="contato.html" class="nav-link active">Contato</a>
-						<a href="cadastro.html" class="nav-link active">Cadastro</a>
-					</div>
-				</div>
-			</div>
-		</nav>
-	</header>
-	<div class="container mt-5">
-		<div class="row">
-			<div class="col-md-6">
-				<form method="post" th:object="${reserva}">
-					<div class="form-group mb-3">
-						<label for="dataInicio" class="form-label"> Data de Ida </label>
-						<input type="date" class="form-control" id="dataInicio" th:field="*{dataInicio}" required>
-					</div>
-					<div class="form-group mb-3">
-						<label for="dataFim" class="form-label"> Data de Volta </label>
-						<input type="date" class="form-control" id="dataFim" th:field="*{dataFim}" required>
-					</div>
 
-					<div class="form-group mb-3">
-						<label for="qtdPessoa" class="form-label"> Quantidade de pessoas </label>
-						<input type="number" class="form-control" id="qtdPessoa" th:field="*{qtdPessoa}" required>
-					</div>
+    <header>
+        <h1>Cadastro de Reservas</h1>
+    </header>
 
-					<div class="form-group mb-3">
-						<label for="usuario" class="form-label"> Usuario </label>
-						<select th:field="*{usuario}" class="form-control">
-							<option th:each="usuario : ${listaUsuario}" th:text="${usuario.nome}" th:value="${usuario.id}">
-							</option>
-						</select>
-					</div>
-					<div class="form-group mb-3">
-						<label for="destino" class="form-label"> Pacote </label>
-						<select th:field="*{pacote}" class="form-control">
-							<option th:each="pacote : ${listaPacote}" th:text="${pacote.destino}" th:value="${pacote.id}">
-							</option>
-						</select>
-					</div>
+    <div class="container-form">
+        <form method="post" th:object="${reserva}">
+            <div class="mb-3">
+                <label for="dataInicio" class="form-label">Data de Ida:</label>
+                <input type="date" class="form-control" id="dataInicio" th:field="*{dataInicio}" required>
+            </div>
+            <div class="mb-3">
+                <label for="dataFim" class="form-label">Data de Volta:</label>
+                <input type="date" class="form-control" id="dataFim" th:field="*{dataFim}" required>
+            </div>
+            <div class="mb-3">
+                <label for="qtdPessoa" class="form-label">Quantidade de Pessoas:</label>
+                <input type="number" class="form-control" id="qtdPessoa" th:field="*{qtdPessoa}" min="0" required>
+            </div>
+            <div class="mb-3">
+                <label for="usuario" class="form-label">Usuário:</label>
+                <select th:field="*{usuario}" class="form-control" required>
+                    <option value="DEFAULT">Escolha um Usuario</option>
+                    <option th:each="usuario : ${listaUsuario}" th:text="${usuario.nome}" th:value="${usuario.id}">
+                    </option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="pacote" class="form-label">Pacote:</label>
+                <select th:field="*{pacote}" class="form-control" required>
+                   <option value="DEFAULT">Escolha um Pacote</option>
+                    <option th:each="pacote : ${listaPacote}" th:text="${pacote.destino}" th:value="${pacote.id}">
+                    </option>
+                </select>
+            </div>
 
-					<button type="submit" class="btn btn-primary">Enviar</button>
-					<a href="/reservas" class="btn btn-danger" style="margin-left: 10px"> Cancelar </a>
-				</form>
-			</div>
-			<div class="col-md-6">
-				<img src="image/cadastro.png" class="img-fluid" alt="Imagem de fundo">
-			</div>
-		</div>
-	</div>
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Enviar</button>
+                <a href="/reservas" class="btn btn-danger mt-2">Cancelar</a>
+            </div>
+        </form>
+    </div>
 
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-		crossorigin="anonymous"></script>
+    <footer class="mt-5">
+        <p>&copy; 2023 Bahia Tour. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

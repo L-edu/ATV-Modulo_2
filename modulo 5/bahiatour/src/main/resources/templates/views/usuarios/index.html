@@ -7,6 +7,8 @@
 	<link rel="icon" href="./assets/img/book-2-fill.svg" type="image/svg" />
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+	<link rel="stylesheet" href="../styles/reset.css" />
+	<link rel="stylesheet" href="../styles/stylecrud.css" />
 	<title>Usuarios</title>
 </head>
 
@@ -21,13 +23,13 @@
 				<a class="nav-link active" aria-current="page" href="">Home</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="">Usuarios</a>
+				<a class="nav-link" th:href="@{usuarios}">Usuarios</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="">Pacotes</a>
+				<a class="nav-link" th:href="@{pacotes}">Pacotes</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="">Reservas</a>
+				<a class="nav-link" th:href="@{reservas}">Reservas</a>
 			</li>
 		</ul>
 
@@ -41,7 +43,7 @@
 				<table class="table table-responsive table-hover">
 					<thead class="table-dark">
 						<tr>
-							<th scope="col">id</th>
+							<th scope="col">#</th>
 							<th scope="col">Nome</th>
 							<th scope="col">Email</th>
 							<th scope="col">Telefone</th>
@@ -57,84 +59,88 @@
 							<td>
 								<div class="d-flex">
 									<a th:href="@{'/usuarios'}" data-bs-toggle="modal"
-										th:data-bs-target="'#exampleModal' + ${u.id}" class="mx-1" title="Editar">
-										<i class="ri-file-edit-line"></i>
+										th:data-bs-target="'#exampleModal' + ${u.id}"
+										class="btn btn-primary btn-sm mx-1" title="Editar">
+										<i class="ri-file-edit-line"></i> Editar
 									</a>
-									<a th:href="@{'/usuarios/' + ${u.id} + '/excluir'}" class="mx-1" title="Cancelar"
-										onclick="return confirm('Deseja excluir o usuario ?')">
-										<i class="ri-delete-bin-2-line"></i>
+									<a th:href="@{'/usuarios/' + ${u.id} + '/excluir'}"
+										class="btn btn-danger btn-sm mx-1" title="Cancelar"
+										onclick="return confirm('Deseja excluir o usuário ?')">
+										<i class="ri-delete-bin-2-line"></i> Excluir
 									</a>
-
-									<!-- Modal Update-->
-									<div class="modal fade" th:id="'exampleModal' + ${u.id}" tabindex="-1"
-										aria-labelledby="exampleModalLabel" aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h1 class="modal-title fs-5" id="exampleModalLabel">Atualizar
-														Usuario</h1>
-													<button type="button" class="btn-close" data-bs-dismiss="modal"
-														aria-label="Close"></button>
-												</div>
-												<div class="modal-body">
-													<form th:action="@{/usuarios/cadastrar}" method="post"
-														th:object="${usuario}">
-														<h2 class="text-center">Preencha os campos</h2>
-														<input type="hidden" id="id" name="id" class="form-control"
-															th:value="${u.id}" />
-														<div class="form-group mb-3">
-															<label for="nome" class="form-label">
-																Nome
-															</label>
-															<input type="text" id="nome" name="nome"
-																class="form-control" th:value="${u.nome}" />
-														</div>
-
-														<div class="form-group mb-3">
-															<label for="email" class="form-label">
-																Email
-															</label>
-															<input type="email" id="email" name="email"
-																class="form-control" th:value="${u.email}" />
-														</div>
-
-														<div class="form-group mb-3">
-															<label for="telefone" class="form-label">
-																Telefone
-															</label>
-															<input type="text" id="telefone" name="telefone"
-																class="form-control" th:value="${u.telefone}" />
-														</div>
-
-														<div class="form-group mb-3">
-															<label for="senha" class="form-label">
-																Senha
-															</label>
-															<input type="password" id="senha" name="senha"
-																class="form-control" th:value="${u.senha}" />
-														</div>
+								</div>
 
 
-														<button type="submit" class="btn btn-primary">
-															Enviar
-														</button>
-														<a href="./usuarios" class="btn btn-danger"
-															style="margin-left: 10px">
-															Cancelar
-														</a>
-													</form>
-												</div>
-
+								<!-- Modal Update-->
+								<div class="modal fade" th:id="'exampleModal' + ${u.id}" tabindex="-1"
+									aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h1 class="modal-title fs-5" id="exampleModalLabel">Atualizar
+													Usuario</h1>
+												<button type="button" class="btn-close" data-bs-dismiss="modal"
+													aria-label="Close"></button>
 											</div>
+											<div class="modal-body">
+												<form th:action="@{/usuarios/cadastrar}" method="post"
+													th:object="${usuario}">
+													<h2 class="text-center">Preencha os campos</h2>
+													<input type="hidden" id="id" name="id" class="form-control"
+														th:value="${u.id}" />
+													<div class="form-group mb-3">
+														<label for="nome" class="form-label">
+															Nome
+														</label>
+														<input type="text" id="nome" name="nome" class="form-control"
+															th:value="${u.nome}" />
+													</div>
+
+													<div class="form-group mb-3">
+														<label for="email" class="form-label">
+															Email
+														</label>
+														<input type="email" id="email" name="email" class="form-control"
+															th:value="${u.email}" />
+													</div>
+
+													<div class="form-group mb-3">
+														<label for="telefone" class="form-label">
+															Telefone
+														</label>
+														<input type="text" id="telefone" name="telefone"
+															class="form-control" th:value="${u.telefone}" />
+													</div>
+
+													<div class="form-group mb-3">
+														<label for="senha" class="form-label">
+															Senha
+														</label>
+														<input type="password" id="senha" name="senha"
+															class="form-control" th:value="${u.senha}" />
+													</div>
+
+
+													<button type="submit" class="btn btn-primary btn-modal">
+														Enviar
+													</button>
+													<a href="./usuarios" class="btn btn-danger btn-modal"
+														style="margin-left: 10px">
+														Cancelar
+													</a>
+												</form>
+											</div>
+
 										</div>
 									</div>
-
 								</div>
-							</td>
-						</tr>
 
-					</tbody>
-				</table>
+			</div>
+			</td>
+			</tr>
+
+			</tbody>
+			</table>
 			</div>
 		</section>
 

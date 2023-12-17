@@ -31,9 +31,6 @@ public class Pacote {
 	@Column(nullable = false)
 	@NumberFormat(style = Style.CURRENCY, pattern = "#,##0.00")
 	private BigDecimal preco;
-	
-	//@OneToMany(mappedBy = "pacote")
-	//private List <Reserva> reserva;
 
 	public Long getId() {
 		return id;

@@ -293,3 +293,10 @@ select option:hover {
 .bg-1 .box-contact span {
   margin-right: 5px;
 }
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
