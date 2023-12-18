@@ -1,0 +1,34 @@
+/* Lógico_1: */
+
+CREATE TABLE Usuarios (
+    telefone VARCHAR,
+    email VARCHAR,
+    id INTEGER PRIMARY KEY,
+    nome VARCHAR,
+    senha VARCHAR
+);
+
+CREATE TABLE Reservas (
+    data_inicio DATE,
+    id INTEGER PRIMARY KEY,
+    data_fim DATE,
+    qtd_pessoa INTEGER,
+    fk_Usuarios_id INTEGER,
+    fk_Pacotes_id INTEGER
+);
+
+CREATE TABLE Pacotes (
+    preco DECIMAL,
+    destino VARCHAR,
+    id INTEGER PRIMARY KEY
+);
+ 
+ALTER TABLE Reservas ADD CONSTRAINT FK_Reservas_2
+    FOREIGN KEY (fk_Usuarios_id)
+    REFERENCES Usuarios (id)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Reservas ADD CONSTRAINT FK_Reservas_3
+    FOREIGN KEY (fk_Pacotes_id)
+    REFERENCES Pacotes (id)
+    ON DELETE RESTRICT;
