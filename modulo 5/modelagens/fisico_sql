@@ -1,34 +1,86 @@
-/* L�gico_1: */
+CREATE DATABASE btour_m5;
 
-CREATE TABLE Usuarios (
-    telefone VARCHAR,
-    email VARCHAR,
-    id INTEGER PRIMARY KEY,
-    nome VARCHAR,
-    senha VARCHAR
+CREATE TABLE usuario (
+  id INTEGER PRIMARY KEY,
+  nome VARCHAR,
+  email VARCHAR,
+  telefone VARCHAR,
+  senha VARCHAR
 );
 
-CREATE TABLE Reservas (
-    data_inicio DATE,
-    id INTEGER PRIMARY KEY,
-    data_fim DATE,
-    qtd_pessoa INTEGER,
-    fk_Usuarios_id INTEGER,
-    fk_Pacotes_id INTEGER
+CREATE TABLE reserva (
+  id INTEGER PRIMARY KEY,
+  data_inicio DATE,
+  data_fim DATE,
+  qtd_pessoa INTEGER,
+  usuario_fk INTEGER,
+  pacote_fk INTEGER
 );
 
-CREATE TABLE Pacotes (
-    preco DECIMAL,
-    destino VARCHAR,
-    id INTEGER PRIMARY KEY
+CREATE TABLE pacote (
+  id INTEGER PRIMARY KEY,
+  preco DECIMAL,
+  destino VARCHAR
 );
- 
-ALTER TABLE Reservas ADD CONSTRAINT FK_Reservas_2
-    FOREIGN KEY (fk_Usuarios_id)
-    REFERENCES Usuarios (id)
-    ON DELETE RESTRICT;
- 
-ALTER TABLE Reservas ADD CONSTRAINT FK_Reservas_3
-    FOREIGN KEY (fk_Pacotes_id)
-    REFERENCES Pacotes (id)
-    ON DELETE RESTRICT;
+
+ALTER TABLE reserva
+ADD CONSTRAINT fk_usuario
+FOREIGN KEY (usuario_fk)
+REFERENCES usuario (id)
+ON DELETE RESTRICT;
+
+ALTER TABLE reserva
+ADD CONSTRAINT fk_pacote
+FOREIGN KEY (pacote_fk)
+REFERENCES pacote (id)
+ON DELETE RESTRICT;
+
+INSERT INTO usuario (id, nome, email, telefone, senha)
+VALUES (1, 'João da Silva', 'joao@gmail.com', '(11) 99999-9999', '123456');
+
+INSERT INTO usuario (id, nome, email, telefone, senha)
+VALUES (2, 'Maria dos Santos', 'maria@hotmail.com', '(21) 88888-8888', '789456');
+
+INSERT INTO usuario (id, nome, email, telefone, senha)
+VALUES (3, 'José Pereira', 'jose@yahoo.com', '(31) 77777-7777', '012345');
+
+INSERT INTO reserva (id, data_inicio, data_fim, qtd_pessoa, usuario_fk, pacote_fk)
+VALUES (1, '2023-12-20', '2023-12-25', 2, 1, 1);
+
+INSERT INTO reserva (id, data_inicio, data_fim, qtd_pessoa, usuario_fk, pacote_fk)
+VALUES (2, '2024-01-03', '2024-01-08', 3, 2, 2);
+
+INSERT INTO reserva (id, data_inicio, data_fim, qtd_pessoa, usuario_fk, pacote_fk)
+VALUES (3, '2024-02-10', '2024-02-15', 1, 3, 3);
+
+INSERT INTO pacote (id, preco, destino)
+VALUES (1, 1000.00, 'Salvador');
+
+INSERT INTO pacote (id, preco, destino)
+VALUES (2, 2000.00, 'Ilheus');
+
+INSERT INTO pacote (id, preco, destino)
+VALUES (3, 3000.00, 'Jequie');
+
+UPDATE usuario
+SET email = 'joao.silva@novaempresa.com'
+WHERE id = 1;
+
+UPDATE reserva
+SET data_inicio = '2023-12-21'
+WHERE id = 1;
+
+DELETE FROM usuario
+WHERE id = 3;
+
+DELETE FROM reserva
+WHERE id = 2;
+
+SELECT *
+FROM usuario;
+
+SELECT *
+FROM reserva;
+
+SELECT *
+FROM pacote;
