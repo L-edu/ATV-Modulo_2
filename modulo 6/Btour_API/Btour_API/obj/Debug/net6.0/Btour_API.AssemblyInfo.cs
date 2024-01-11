@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Btour_API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4f9c6d520ffe6b57648626e34fab23f23f6222d3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Btour_API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Btour_API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

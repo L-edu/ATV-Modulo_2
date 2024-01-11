@@ -1,0 +1,60 @@
+/* styles/UpdateReserva.module.css */
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .update-reserva-title {
+    color: #3498db;
+    text-align: center;
+  }
+  
+  .reserva-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+  }
+  
+  .reserva-table label {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .reserva-table tr {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .reserva-table td {
+    flex: 1;
+  }
+  
+  .reserva-table input,
+  .reserva-table select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .reserva-table button {
+    padding: 10px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .reserva-table button:hover {
+    background-color: #2980b9;
+  }
+  
